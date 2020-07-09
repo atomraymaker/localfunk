@@ -1,0 +1,64 @@
+AWSTemplateFormatVersion: 2010-09-09
+Transform: AWS::Serverless-2016-10-31
+
+Globals:
+  Function:
+    Runtime: python3.7
+    Environment:
+      Variables:
+        LOG_LEVEL: INFO
+        TABLE: !Select [1, !Split [/, !GetAtt Table.Arn]]
+    Timeout: 90
+
+Resources:
+  Table:
+    Type: AWS::DynamoDB::Table
+    Properties:
+      TableName: localfunk
+      BillingMode: PAY_PER_REQUEST
+      AttributeDefinitions:
+        - AttributeName: "Key"
+          AttributeType: "S"
+      KeySchema:
+        - AttributeName: "Key"
+          KeyType: "HASH"
+
+  GetItem:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: app
+      Handler: get_item.do
+      Events:
+        Api:
+          Type: Api
+          Properties:
+            Method: Get
+            Path: /{key}
+      Policies:
+        - AWSLambdaExecute
+        - Version: 2012-10-17
+          Statement:
+            - Effect: Allow
+              Action:
+                - dynamodb:GetItem
+              Resource: !GetAtt Table.Arn
+
+  PutItem:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: app
+      Handler: put_item.do
+      Events:
+        Api:
+          Type: Api
+          Properties:
+            Method: POST
+            Path: /{key}
+      Policies:
+        - AWSLambdaExecute
+        - Version: 2012-10-17
+          Statement:
+            - Effect: Allow
+              Action:
+                - dynamodb:PutItem
+              Resource: !GetAtt Table.Arn

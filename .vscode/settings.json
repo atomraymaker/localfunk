@@ -1,0 +1,22 @@
+{
+    "python.formatting.blackPath": ".venv/bin/black",
+    "python.linting.mypyPath": ".venv/bin/mypy",
+    "python.linting.pylintPath": ".venv/bin/pylint",
+    "python.linting.mypyEnabled": true,
+    "python.formatting.provider": "black",
+    "python.testing.pytestPath": ".venv/bin/pytest",
+    "editor.codeActionsOnSave": {
+        "source.organizeImports": true
+    },
+    "python.pythonPath": ".venv/bin/python3.8",
+    "python.autoComplete.extraPaths": [
+        "./example/app"
+    ],
+    "python.linting.pylintArgs": [
+        "--init-hook",
+        "import sys; sys.path.append(\"app\");",
+        "-d",
+        "missing-module-docstring,missing-function-docstring,missing-class-docstring"
+    ],
+    "python.linting.pylintEnabled": true,
+}

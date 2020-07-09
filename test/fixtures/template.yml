@@ -1,0 +1,23 @@
+AWSTemplateFormatVersion: 2010-09-09
+Transform: AWS::Serverless-2016-10-31
+
+Globals:
+  Function:
+    Runtime: python3.7
+    Environment:
+      Variables:
+        LOG_LEVEL: INFO
+    Timeout: 5
+
+Resources:
+  FunctionOne:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: app1
+      Handler: handler1.handle
+
+  FunctionTwo:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: app2
+      Handler: handler2.do

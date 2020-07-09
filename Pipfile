@@ -1,0 +1,33 @@
+[[source]]
+name = "pypi"
+url = "https://pypi.org/simple"
+verify_ssl = true
+
+[dev-packages]
+pytest = "*"
+pylint = "*"
+black = "*"
+pytest-cov = "*"
+twine = "*"
+watchdog = "*"
+mypy = "*"
+
+[packages]
+flask = "*"
+pyngrok = "*"
+cfn-flip = "*"
+boto3 = "*"
+
+[requires]
+python_version = "3.8"
+
+[pipenv]
+allow_prereleases = true
+
+[scripts]
+test = "pytest test --cov=localfunk --cov-report term"
+test-html = "pytest test --cov=localfunk --cov-report html:coverage/html"
+test-watch = "watchmedo shell-command --patterns='*.py;*.txt' --recursive --command='pipenv run test-html -s'"
+build = "python setup.py sdist"
+deploy = "twine upload dist/*"
+version = "python -c \"from localfunk.__data__ import version; print(version)\""

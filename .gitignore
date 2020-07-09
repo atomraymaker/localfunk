@@ -1,0 +1,9 @@
+.venv
+.mypy_cache
+.pytest_cache
+.aws-sam
+generated_code.py
+generated_code_fail.py
+*.egg-info
+.coverage
+dist
