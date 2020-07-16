@@ -39,8 +39,10 @@ def parse():
 
 
 def run(args):
+    temp_template = "./locafunk_template.yaml"
+
     if args.server:
-        server.start(args.port)
+        server.start(args.port, args.template)
     else:
         # ngrok
         if args.url:
@@ -49,16 +51,15 @@ def run(args):
             public_url = ngrok.connect(args.port)
 
         # build
-        sam.build(public_url.split("//")[-1], args.template)
+        sam.build(public_url.split("//")[-1], args.template, temp_template)
 
         # deploy
-        deploy_command = ["sam", "deploy"]
+        deploy_command = ["sam", "deploy", f"-t{temp_template}"]
         if args.guided or not os.path.exists("samconfig.toml"):
             deploy_command.append("--guided")
         subprocess.run(deploy_command, check=True)
 
+        sam.cleanup(temp_template)
+
         # local server
-        server.start(args.port)
-
-
-# test with permissions - just list s3 buckets or something. Should be able to do it from the env vars.
+        server.start(args.port, args.template)

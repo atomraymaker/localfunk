@@ -19,5 +19,6 @@ Resources:
   FunctionTwo:
     Type: AWS::Serverless::Function
     Properties:
-      CodeUri: app2
-      Handler: handler2.do
+      InlineCode: |
+        print("test")
+      Handler: index.handler

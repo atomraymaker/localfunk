@@ -46,8 +46,26 @@ Resources:
   PutItem:
     Type: AWS::Serverless::Function
     Properties:
-      CodeUri: app
-      Handler: put_item.do
+      InlineCode: |
+        import json
+        import os
+
+        import boto3
+
+        SESSION = boto3.session.Session()
+        TABLE = os.environ.get("TABLE")
+
+
+        def handler(event, _context):
+            key = event["pathParameters"].get("key")
+            attrs = json.loads(event["body"])
+            table = SESSION.resource("dynamodb").Table(TABLE)
+            item = {"Key": key, **attrs}
+            table.put_item(Item=item, ReturnValues="NONE")
+
+            return {"statusCode": 200, "body": json.dumps({"item": item})}
+
+      Handler: index.handler
       Events:
         Api:
           Type: Api

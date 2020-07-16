@@ -35,14 +35,10 @@ The Lambda environment variables include a session token set from the function r
 
 ## Possible Improvements
 
-The current code build process builds code into .aws-sam/build similar to how `Sam build` does. For this to work it is necesary to alter the CodeUri in the template. It may speed things up to alter the template to include the code inline instead.
+Run ngrok as a deamon and check for a running instance before starting a new one. Can also check template to see if ngrok has changed. This will speed up stopping and starting because there won't need to be a redeploy if it hasn't changed.
 
 [Docker-lambda](https://github.com/lambci/docker-lambda) is currently not integrated but adding it would bring the local invocation closer to the real Lambda environment.
 
 Localfunk currently only works with AWS::Serverless::Function and `Sam Deploy` but could work with raw Cloudformation. It could also work with inline lambdas by parsing the template code and dynamically loading the code on each request.
 
 This library only supports calling Python local Python code but the same pattern would work for other languages. Due to the way that the code is loaded and invocated it seems simpler to run Python code from Python but maybe it would work to create a generic CLI tool that could invoke any language.
-
-## Good Idea
-
-Is this a good idea? I am still undecided and I don't currently have a project to test it on thoroughly, try it out and let me know what you think.
