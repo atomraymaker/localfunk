@@ -19,6 +19,6 @@ setup(
     ],
     packages=find_packages(exclude=("tests",)),
     include_package_data=True,
-    install_requires=["flask", "pyngrok", "cfn-flip"],
+    install_requires=["flask", "pyngrok", "cfn-flip", "boto3"],
     entry_points={"console_scripts": ["localfunk=localfunk.main:main",]},
 )

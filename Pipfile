@@ -11,12 +11,12 @@ pytest-cov = "*"
 twine = "*"
 watchdog = "*"
 mypy = "*"
+boto3 = "*"
 
 [packages]
 flask = "*"
 pyngrok = "*"
 cfn-flip = "*"
-boto3 = "*"
 
 [requires]
 python_version = "3.8"

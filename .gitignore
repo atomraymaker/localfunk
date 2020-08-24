@@ -7,3 +7,4 @@ generated_code_fail.py
 *.egg-info
 .coverage
 dist
+__pycache__

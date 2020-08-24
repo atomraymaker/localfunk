@@ -1,4 +1,4 @@
-version = "0.0.3"
+version = "0.0.6"
 
 name = "localfunk"
 author = "Adam Baker"

@@ -7,7 +7,7 @@ Localfunk proxies lambda invocations to local code.
 ## Usage
 
 - `pipenv install --dev localfunk`
-- Run `localfunk` in the Sam project folder
+- `pipenv run localfunk`
 
 ## Why
 
@@ -39,6 +39,6 @@ Run ngrok as a deamon and check for a running instance before starting a new one
 
 [Docker-lambda](https://github.com/lambci/docker-lambda) is currently not integrated but adding it would bring the local invocation closer to the real Lambda environment.
 
-Localfunk currently only works with AWS::Serverless::Function and `Sam Deploy` but could work with raw Cloudformation. It could also work with inline lambdas by parsing the template code and dynamically loading the code on each request.
+Localfunk currently only works with AWS::Serverless::Function and `Sam Deploy` but could work with raw Cloudformation.
 
 This library only supports calling Python local Python code but the same pattern would work for other languages. Due to the way that the code is loaded and invocated it seems simpler to run Python code from Python but maybe it would work to create a generic CLI tool that could invoke any language.

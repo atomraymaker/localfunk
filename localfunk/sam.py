@@ -65,7 +65,7 @@ def get_functions(template_yaml):
     for name, details in template_yaml["Resources"].items():
         if details["Type"] == "AWS::Serverless::Function":
             props = details["Properties"]
-            file, function = props["Handler"].split(".")
+            file, function = props["Handler"].rsplit(".", 1)
 
             if "CodeUri" in props:
                 code_uri = props["CodeUri"]
