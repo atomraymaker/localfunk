@@ -17,6 +17,7 @@ boto3 = "*"
 flask = "*"
 pyngrok = "*"
 cfn-flip = "*"
+aws-sam-cli = "*"
 
 [requires]
 python_version = "3.8"

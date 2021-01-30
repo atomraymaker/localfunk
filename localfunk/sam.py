@@ -23,6 +23,7 @@ def update_template(template_yaml, functions, url):
                 del props["CodeUri"]
             props["Handler"] = "index.handler"
             props["InlineCode"] = gen_code(functions[name], url)
+            props["Runtime"] = "python3.7"
 
 
 def save_template(template_yaml, save_path):
@@ -40,6 +41,7 @@ import os
 conn = http.client.HTTPConnection("{proxy}")
 headers = {{"Content-type": "application/json"}}
 
+IGNORE = ["_epoch_deadline_time_in_ms", "identity"]
 
 def handler(event, context):
     data = {{
@@ -48,7 +50,8 @@ def handler(event, context):
         "name": "{func['name']}",
         "code_uri": "{func['code_uri']}",
         "file": "{func['file']}",
-        "function": "{func['function']}" 
+        "function": "{func['function']}",
+        "context": {{n: v for n, v in context.__dict__.items() if n not in IGNORE }}
     }}
 
     try:

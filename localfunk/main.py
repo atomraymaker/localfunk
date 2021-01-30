@@ -48,7 +48,7 @@ def run(args):
         if args.url:
             public_url = args.url
         else:
-            public_url = ngrok.connect(args.port)
+            public_url = ngrok.connect(args.port).public_url
 
         # build
         sam.build(public_url.split("//")[-1], args.template, temp_template)

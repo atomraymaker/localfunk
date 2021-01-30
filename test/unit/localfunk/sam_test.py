@@ -38,7 +38,7 @@ def test_gen_code():
 
     import generated_code  # pylint: disable=import-error, import-outside-toplevel
 
-    response = generated_code.handler({"event": "test"}, {"context": "test"})
+    response = generated_code.handler({"event": "test"}, Context())
 
     server.shutdown()
 
@@ -49,6 +49,7 @@ def test_gen_code():
         "code_uri": "app",
         "file": "test_code",
         "function": "test_code",
+        "context": {},
     }
 
     if os.path.exists(path):
@@ -70,7 +71,7 @@ def test_gen_code_failure():
 
     import generated_code_fail  # pylint: disable=import-error, import-outside-toplevel
 
-    response = generated_code_fail.handler({"event": "test"}, {"context": "test"})
+    response = generated_code_fail.handler({"event": "test"}, Context())
 
     server.shutdown()
 
@@ -105,6 +106,10 @@ def func(name):
         "file": name,
         "function": name,
     }
+
+
+class Context:
+    pass
 
 
 @app.route("/", methods=["POST"])
